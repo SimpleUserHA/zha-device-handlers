@@ -24,7 +24,12 @@ from zhaquirks.const import (
     CLUSTER_ID,
     COMMAND,
     COMMAND_ATTRIBUTE_UPDATED,
+    COMMAND_MOVE,
+    COMMAND_STEP,
+    COMMAND_STOP,
     DEVICE_TYPE,
+    DIM_DOWN,
+    DIM_UP,
     ENDPOINT_ID,
     ENDPOINTS,
     INPUT_CLUSTERS,
@@ -32,9 +37,10 @@ from zhaquirks.const import (
     OUTPUT_CLUSTERS,
     PROFILE_ID,
     SHORT_PRESS,
+    LONG_PRESS,
+    LONG_RELEASE,
     VALUE,
 )
-
 
 CHANGE_SCENE = "change_scene"
 CURRENT_SCENE = "current_scene"
@@ -141,6 +147,39 @@ class TintRemote(CustomDevice):
         },
 
     device_automation_triggers = {
+
+        """ BRIGHTNESS """
+        (SHORT_PRESS, DIM_DOWN): {
+            COMMAND: COMMAND_STEP,
+            CLUSTER_ID: 8,
+            ENDPOINT_ID: 1,
+            ARGS: [1, 43, 10],
+        },
+        (LONG_PRESS, DIM_DOWN): {
+            COMMAND: COMMAND_MOVE,
+            CLUSTER_ID: 8,
+            ENDPOINT_ID: 1,
+            ARGS: [1, 100],
+        },
+        (SHORT_PRESS, DIM_UP): {
+            COMMAND: COMMAND_STEP,
+            CLUSTER_ID: 8,
+            ENDPOINT_ID: 1,
+            ARGS: [0, 43, 10],
+        },
+        (LONG_PRESS, DIM_UP): {
+            COMMAND: COMMAND_MOVE,
+            CLUSTER_ID: 8,
+            ENDPOINT_ID: 1,
+            ARGS: [0, 100],
+        },
+        """ todo: check for correct definition, because stop command is being sent for up and down equally """
+        (LONG_RELEASE): {
+            COMMAND: COMMAND_STOP,
+            CLUSTER_ID: 8,
+            ENDPOINT_ID: 1,
+            ARGS: [],
+        },
 
         """ SCRENES """
 
