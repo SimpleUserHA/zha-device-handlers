@@ -26,6 +26,7 @@ from zhaquirks.const import (
     PROFILE_ID,
 )
 
+CURRENT_SCENE = "current_scene"
 TINT_SCENE_ATTR = 0x4005
 
 _LOGGER = logging.getLogger(__name__)
@@ -139,7 +140,7 @@ class TintRemote(CustomDevice):
             ENDPOINT_ID: 1,
             ARGS: [{
                 ATTRIBUTE_ID: 1,
-                ATTRIBUTE_NAME: "current_scene",
+                ATTRIBUTE_NAME: CURRENT_SCENE,
                 VALUE: 3
                 }],
         },
@@ -150,7 +151,7 @@ class TintRemote(CustomDevice):
             ENDPOINT_ID: 1,
             ARGS: [{
                 ATTRIBUTE_ID: 1,
-                ATTRIBUTE_NAME: "current_scene",
+                ATTRIBUTE_NAME: CURRENT_SCENE,
                 VALUE: 1
                 }],
         },
@@ -161,7 +162,7 @@ class TintRemote(CustomDevice):
             ENDPOINT_ID: 1,
             ARGS: [{
                 ATTRIBUTE_ID: 1,
-                ATTRIBUTE_NAME: "current_scene",
+                ATTRIBUTE_NAME: CURRENT_SCENE,
                 VALUE: 2
                 }],
         },
@@ -173,7 +174,7 @@ class TintRemote(CustomDevice):
             ENDPOINT_ID: 1,
             ARGS: [{
                 ATTRIBUTE_ID: 1,
-                ATTRIBUTE_NAME: "current_scene",
+                ATTRIBUTE_NAME: CURRENT_SCENE,
                 VALUE: 6
                 }],
         },
@@ -185,7 +186,7 @@ class TintRemote(CustomDevice):
             ENDPOINT_ID: 1,
             ARGS: [{
                 ATTRIBUTE_ID: 1,
-                ATTRIBUTE_NAME: "current_scene",
+                ATTRIBUTE_NAME: CURRENT_SCENE,
                 VALUE: 4
                 }],
         },
@@ -197,7 +198,7 @@ class TintRemote(CustomDevice):
             ENDPOINT_ID: 1,
             ARGS: [{
                 ATTRIBUTE_ID: 1,
-                ATTRIBUTE_NAME: "current_scene",
+                ATTRIBUTE_NAME: CURRENT_SCENE,
                 VALUE: 5
                 }],
         },
