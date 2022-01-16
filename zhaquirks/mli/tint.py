@@ -25,6 +25,8 @@ from zhaquirks.const import (
     COMMAND,
     COMMAND_ATTRIBUTE_UPDATED,
     COMMAND_MOVE,
+    COMMAND_ON,
+    COMMAND_OFF,
     COMMAND_STEP,
     COMMAND_STOP,
     DEVICE_TYPE,
@@ -149,17 +151,31 @@ class TintRemote(CustomDevice):
 
     device_automation_triggers = {
 
+        # ON / OFF BUTTON
+        (SHORT_PRESS, "BUTTON_ON"): {
+            COMMAND: COMMAND_ON,
+            CLUSTER_ID: 6,
+            ENDPOINT_ID: 1,
+            ARGS: [],
+        },
+        (SHORT_PRESS, "BUTTON_OFF"): {
+            COMMAND: COMMAND_OFF,
+            CLUSTER_ID: 6,
+            ENDPOINT_ID: 1,
+            ARGS: [],
+        },
+
         # COLOR TEMPERATURE BUTTONS
         # todo:  validate correct handling for cycling through available values
         # WARMER
-        (SHORT_PRESS, "COLOR_TEMP_WARM"): {
+        (SHORT_PRESS, "BUTTON_COLOR_TEMP_WARM"): {
             COMMAND: COMMAND_MOVE_TO_COLOR_TEMP,
             CLUSTER_ID: 768,
             ENDPOINT_ID: 1,
             ARGS: [370, 10],
         },
         # COLDER
-        (SHORT_PRESS, "COLOR_TEMP_COLD"): {
+        (SHORT_PRESS, "BUTTON_COLOR_TEMP_COLD"): {
             COMMAND: COMMAND_MOVE_TO_COLOR_TEMP,
             CLUSTER_ID: 768,
             ENDPOINT_ID: 1,
