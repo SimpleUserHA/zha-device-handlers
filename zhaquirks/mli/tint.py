@@ -148,7 +148,7 @@ class TintRemote(CustomDevice):
 
     device_automation_triggers = {
 
-        """ BRIGHTNESS """
+        # BRIGHTNESS UP/DOWN BUTTONS
         (SHORT_PRESS, DIM_DOWN): {
             COMMAND: COMMAND_STEP,
             CLUSTER_ID: 8,
@@ -173,7 +173,7 @@ class TintRemote(CustomDevice):
             ENDPOINT_ID: 1,
             ARGS: [0, 100],
         },
-        """ todo: check for correct definition, because stop command is being sent for up and down equally """
+        # todo: check for correct definition, because stop command is being sent for up and down equally """
         (LONG_RELEASE): {
             COMMAND: COMMAND_STOP,
             CLUSTER_ID: 8,
@@ -181,9 +181,9 @@ class TintRemote(CustomDevice):
             ARGS: [],
         },
 
-        """ SCRENES """
+        # SCENE BUTTONS
 
-        """ SCRENE: worklight """
+        # SCENE: worklight
         (SHORT_PRESS, "worklight"): {
             COMMAND: COMMAND_ATTRIBUTE_UPDATED,
             CLUSTER_ID: 5,
@@ -194,7 +194,7 @@ class TintRemote(CustomDevice):
                 VALUE: 3
                 }],
         },
-        """ SCRENE: sunset """
+        # SCENE: sunset
         (SHORT_PRESS, "sunset"): {
             COMMAND: COMMAND_ATTRIBUTE_UPDATED,
             CLUSTER_ID: 5,
@@ -205,7 +205,7 @@ class TintRemote(CustomDevice):
                 VALUE: 1
                 }],
         },
-        """ SCRENE: party """
+        # SCENE: party
         (SHORT_PRESS, "party"): {
             COMMAND: COMMAND_ATTRIBUTE_UPDATED,
             CLUSTER_ID: 5,
@@ -217,7 +217,7 @@ class TintRemote(CustomDevice):
                 }],
         },
 
-        """ SCRENE: nightlight """
+        # SCENE: nightlight
         (SHORT_PRESS, "nightlight"): {
             COMMAND: COMMAND_ATTRIBUTE_UPDATED,
             CLUSTER_ID: 5,
@@ -228,8 +228,7 @@ class TintRemote(CustomDevice):
                 VALUE: 6
                 }],
         },
-
-        """ SCRENE: campfire """
+        # SCENE: campfire
         (SHORT_PRESS, "campfire"): {
             COMMAND: COMMAND_ATTRIBUTE_UPDATED,
             CLUSTER_ID: 5,
@@ -240,8 +239,7 @@ class TintRemote(CustomDevice):
                 VALUE: 4
                 }],
         },
-
-        """ SCRENE: romance """
+        # SCENE: romance
         (SHORT_PRESS, "romance"): {
             COMMAND: COMMAND_ATTRIBUTE_UPDATED,
             CLUSTER_ID: 5,
