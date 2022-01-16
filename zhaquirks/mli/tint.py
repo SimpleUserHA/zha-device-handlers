@@ -18,12 +18,21 @@ from zigpy.zcl.clusters.lightlink import LightLink
 
 from zhaquirks import Bus, LocalDataCluster
 from zhaquirks.const import (
+    ARGS,
+    ATTRIBUTE_ID,
+    ATTRIBUTE_NAME,
+    CLUSTER_ID,
+    COMMAND,
+    COMMAND_ATTRIBUTE_UPDATED,
     DEVICE_TYPE,
+    ENDPOINT_ID,
     ENDPOINTS,
     INPUT_CLUSTERS,
     MODELS_INFO,
     OUTPUT_CLUSTERS,
     PROFILE_ID,
+    SHORT_PRESS,
+    VALUE,
 )
 
 CURRENT_SCENE = "current_scene"
