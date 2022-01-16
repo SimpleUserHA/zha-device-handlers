@@ -148,7 +148,8 @@ class TintRemote(CustomDevice):
                     LightLink.cluster_id,  # 4096
                 ],
             },
-        },
+        }
+    }
 
     device_automation_triggers = {
 
