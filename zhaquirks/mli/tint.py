@@ -35,6 +35,8 @@ from zhaquirks.const import (
     VALUE,
 )
 
+
+CHANGE_SCENE = "change_scene"
 CURRENT_SCENE = "current_scene"
 TINT_SCENE_ATTR = 0x4005
 
@@ -54,7 +56,7 @@ class TintRemoteScenesCluster(LocalDataCluster, Scenes):
 
     def change_scene(self, value):
         """Change scene attribute to new value."""
-        self._update_attribute(self.attridx["current_scene"], value)
+        self._update_attribute(self.attridx[CURRENT_SCENE], value)
 
 
 class TintRemoteBasicCluster(CustomCluster, Basic):
@@ -76,7 +78,7 @@ class TintRemoteBasicCluster(CustomCluster, Basic):
             return
 
         value = attr.value.value
-        self.endpoint.device.scene_bus.listener_event("change_scene", value)
+        self.endpoint.device.scene_bus.listener_event(CHANGE_SCENE, value)
 
 
 class TintRemote(CustomDevice):
