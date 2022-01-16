@@ -127,4 +127,78 @@ class TintRemote(CustomDevice):
                 ],
             },
         },
+
+    device_automation_triggers = {
+
+        """ SCRENES """
+
+        """ SCRENE: worklight """
+        (SHORT_PRESS, "worklight"): {
+            COMMAND: COMMAND_ATTRIBUTE_UPDATED,
+            CLUSTER_ID: 5,
+            ENDPOINT_ID: 1,
+            ARGS: [{
+                ATTRIBUTE_ID: 1,
+                ATTRIBUTE_NAME: "current_scene",
+                VALUE: 3
+                }],
+        },
+        """ SCRENE: sunset """
+        (SHORT_PRESS, "sunset"): {
+            COMMAND: COMMAND_ATTRIBUTE_UPDATED,
+            CLUSTER_ID: 5,
+            ENDPOINT_ID: 1,
+            ARGS: [{
+                ATTRIBUTE_ID: 1,
+                ATTRIBUTE_NAME: "current_scene",
+                VALUE: 1
+                }],
+        },
+        """ SCRENE: party """
+        (SHORT_PRESS, "party"): {
+            COMMAND: COMMAND_ATTRIBUTE_UPDATED,
+            CLUSTER_ID: 5,
+            ENDPOINT_ID: 1,
+            ARGS: [{
+                ATTRIBUTE_ID: 1,
+                ATTRIBUTE_NAME: "current_scene",
+                VALUE: 2
+                }],
+        },
+
+        """ SCRENE: nightlight """
+        (SHORT_PRESS, "nightlight"): {
+            COMMAND: COMMAND_ATTRIBUTE_UPDATED,
+            CLUSTER_ID: 5,
+            ENDPOINT_ID: 1,
+            ARGS: [{
+                ATTRIBUTE_ID: 1,
+                ATTRIBUTE_NAME: "current_scene",
+                VALUE: 6
+                }],
+        },
+
+        """ SCRENE: campfire """
+        (SHORT_PRESS, "campfire"): {
+            COMMAND: COMMAND_ATTRIBUTE_UPDATED,
+            CLUSTER_ID: 5,
+            ENDPOINT_ID: 1,
+            ARGS: [{
+                ATTRIBUTE_ID: 1,
+                ATTRIBUTE_NAME: "current_scene",
+                VALUE: 4
+                }],
+        },
+
+        """ SCRENE: romance """
+        (SHORT_PRESS, "romance"): {
+            COMMAND: COMMAND_ATTRIBUTE_UPDATED,
+            CLUSTER_ID: 5,
+            ENDPOINT_ID: 1,
+            ARGS: [{
+                ATTRIBUTE_ID: 1,
+                ATTRIBUTE_NAME: "current_scene",
+                VALUE: 5
+                }],
+        },
     }
