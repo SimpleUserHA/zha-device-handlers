@@ -45,6 +45,7 @@ from zhaquirks.const import (
 )
 
 CHANGE_SCENE = "change_scene"
+COMMAND_MOVE_TO_COLOR = "move_to_color"
 COMMAND_MOVE_TO_COLOR_TEMP = "move_to_color_temp" # zhaquirks/const.py only knows COMMAND_MOVE_COLOR_TEMP
 CURRENT_SCENE = "current_scene"
 TINT_SCENE_ATTR = 0x4005
@@ -163,6 +164,16 @@ class TintRemote(CustomDevice):
             CLUSTER_ID: 6,
             ENDPOINT_ID: 1,
             ARGS: [],
+        },
+
+        # COLOR WHEEL
+        # todo:  validate correct handling for dynmic color values sent by color wheel
+        # WARMER
+        (SHORT_PRESS, "COLOR_WHEEL"): {
+            COMMAND: COMMAND_MOVE_TO_COLOR,
+            CLUSTER_ID: 768,
+            ENDPOINT_ID: 1,
+            ARGS: [24420, 38570, 0], # sample values
         },
 
         # COLOR TEMPERATURE BUTTONS
