@@ -18,14 +18,25 @@ from zigpy.zcl.clusters.lightlink import LightLink
 
 from zhaquirks import Bus, LocalDataCluster
 from zhaquirks.const import (
+    ARGS,
+    ATTRIBUTE_ID,
+    ATTRIBUTE_NAME,
+    CLUSTER_ID,
+    COMMAND,
+    COMMAND_ATTRIBUTE_UPDATED,
     DEVICE_TYPE,
+    ENDPOINT_ID,
     ENDPOINTS,
     INPUT_CLUSTERS,
     MODELS_INFO,
     OUTPUT_CLUSTERS,
     PROFILE_ID,
+    SHORT_PRESS,
+    VALUE,
 )
 
+CHANGE_SCENE = "change_scene"
+CURRENT_SCENE = "current_scene"
 TINT_SCENE_ATTR = 0x4005
 
 _LOGGER = logging.getLogger(__name__)
@@ -44,7 +55,7 @@ class TintRemoteScenesCluster(LocalDataCluster, Scenes):
 
     def change_scene(self, value):
         """Change scene attribute to new value."""
-        self._update_attribute(self.attridx["current_scene"], value)
+        self._update_attribute(self.attridx[CURRENT_SCENE], value)
 
 
 class TintRemoteBasicCluster(CustomCluster, Basic):
@@ -66,7 +77,7 @@ class TintRemoteBasicCluster(CustomCluster, Basic):
             return
 
         value = attr.value.value
-        self.endpoint.device.scene_bus.listener_event("change_scene", value)
+        self.endpoint.device.scene_bus.listener_event(CHANGE_SCENE, value)
 
 
 class TintRemote(CustomDevice):
@@ -126,5 +137,77 @@ class TintRemote(CustomDevice):
                     LightLink.cluster_id,  # 4096
                 ],
             },
+        },
+    }
+
+    device_automation_triggers = {
+        # SCENE BUTTONS
+
+        # SCENE: worklight
+        (SHORT_PRESS, "worklight"): {
+            COMMAND: COMMAND_ATTRIBUTE_UPDATED,
+            CLUSTER_ID: 5,
+            ENDPOINT_ID: 1,
+            ARGS: [{
+                ATTRIBUTE_ID: 1,
+                ATTRIBUTE_NAME: CURRENT_SCENE,
+                VALUE: 3
+                }],
+        },
+        # SCENE: sunset
+        (SHORT_PRESS, "sunset"): {
+            COMMAND: COMMAND_ATTRIBUTE_UPDATED,
+            CLUSTER_ID: 5,
+            ENDPOINT_ID: 1,
+            ARGS: [{
+                ATTRIBUTE_ID: 1,
+                ATTRIBUTE_NAME: CURRENT_SCENE,
+                VALUE: 1
+                }],
+        },
+        # SCENE: party
+        (SHORT_PRESS, "party"): {
+            COMMAND: COMMAND_ATTRIBUTE_UPDATED,
+            CLUSTER_ID: 5,
+            ENDPOINT_ID: 1,
+            ARGS: [{
+                ATTRIBUTE_ID: 1,
+                ATTRIBUTE_NAME: CURRENT_SCENE,
+                VALUE: 2
+                }],
+        },
+
+        # SCENE: nightlight
+        (SHORT_PRESS, "nightlight"): {
+            COMMAND: COMMAND_ATTRIBUTE_UPDATED,
+            CLUSTER_ID: 5,
+            ENDPOINT_ID: 1,
+            ARGS: [{
+                ATTRIBUTE_ID: 1,
+                ATTRIBUTE_NAME: CURRENT_SCENE,
+                VALUE: 6
+                }],
+        },
+        # SCENE: campfire
+        (SHORT_PRESS, "campfire"): {
+            COMMAND: COMMAND_ATTRIBUTE_UPDATED,
+            CLUSTER_ID: 5,
+            ENDPOINT_ID: 1,
+            ARGS: [{
+                ATTRIBUTE_ID: 1,
+                ATTRIBUTE_NAME: CURRENT_SCENE,
+                VALUE: 4
+                }],
+        },
+        # SCENE: romance
+        (SHORT_PRESS, "romance"): {
+            COMMAND: COMMAND_ATTRIBUTE_UPDATED,
+            CLUSTER_ID: 5,
+            ENDPOINT_ID: 1,
+            ARGS: [{
+                ATTRIBUTE_ID: 1,
+                ATTRIBUTE_NAME: CURRENT_SCENE,
+                VALUE: 5
+                }],
         },
     }
