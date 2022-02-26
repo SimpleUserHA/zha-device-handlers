@@ -28,6 +28,32 @@ from zhaquirks.const import (
 from zhaquirks.danfoss import D5X84YU, DANFOSS
 
 
+# ---------------------------------------------------------
+# Values for Danfoss Ally thermostat configuration
+# ---------------------------------------------------------
+DANFOSS_EXTERNAL_SENSOR_WINDOWS_CLOSED = 0x00
+DANFOSS_EXTERNAL_SENSOR_WINDOWS_OPENED = 0x01
+DANFOSS_MOUNTING_MODE_UNMOUNTED = 0x00
+DANFOSS_MOUNTING_MODE_MOUNTED = 0x01
+DANFOSS_ORIENTATION_HORIZONTAL = 0x00
+DANFOSS_ORIENTATION_VERTICAL = 0x01
+DANFOSS_WINDOW_OPEN_FEATURE_OFF = 0x00
+DANFOSS_WINDOW_OPEN_FEATURE_ON = 0x01
+
+class DanfossTrvOpenWindowDetection(t.enum8):
+    QUARANTINE = 0x00
+    """Quarantine"""
+    WINDOWS_CLOSED = 0x01
+    """Windows are closed"""
+    HOLD = 0x02
+    """Hold, Windows are maybe about to open"""
+    WINDOWS_OPENED = 0x03
+    """Open window detected"""
+    EXTERNAL_WINDOWS_OPENED = 0x04
+    """In window open state from external, but detected closed locally"""
+
+
+
 class DanfossThermostatCluster(CustomCluster, Thermostat):
     """Danfoss custom cluster."""
 
