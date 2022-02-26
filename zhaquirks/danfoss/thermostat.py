@@ -53,6 +53,20 @@ class DanfossTrvOpenWindowDetection(t.enum8):
     """In window open state from external, but detected closed locally"""
 
 
+class DanfossKeypadLockout(t.enum8):
+    NO_LOCKOUT = 0x00
+    """no lockout"""
+    LOCKOUT = 0x01
+    """lockout (child lock)"""
+
+
+class DanfossViewingDirection(t.enum8):
+    NORMAL = 0x00
+    """viewing direction 1"""
+    UPSIDE_DOWN = 0x01
+    """viewing direction 2"""
+
+
 
 class DanfossThermostatCluster(CustomCluster, Thermostat):
     """Danfoss custom cluster."""
