@@ -123,6 +123,7 @@ class DanfossUserInterfaceCluster(CustomCluster, UserInterface):
     """Danfoss custom cluster."""
 
     manufacturer_attributes = {
+        0x0001: ("keypad_lockout", t.enum8),
         0x4000: ("viewing_direction", t.enum8),
         0xFFFD: ("cluster_revision", t.uint16_t),
     }
