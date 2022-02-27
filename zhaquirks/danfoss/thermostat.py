@@ -52,13 +52,11 @@ class DanfossTrvOpenWindowDetection(t.enum8):
     EXTERNAL_WINDOWS_OPENED = 0x04
     """In window open state from external, but detected closed locally"""
 
-
 class DanfossKeypadLockout(t.enum8):
     NO_LOCKOUT = 0x00
     """no lockout"""
     LOCKOUT = 0x01
     """lockout (child lock)"""
-
 
 class DanfossViewingDirection(t.enum8):
     NORMAL = 0x00
@@ -66,6 +64,19 @@ class DanfossViewingDirection(t.enum8):
     UPSIDE_DOWN = 0x01
     """viewing direction 2"""
 
+class DanfossExerciseDayOfWeek(t.enum8):
+    SUNDAY = 0
+    MONDAY = 1
+    TUESDAY = 2
+    WEDNESDAY = 3
+    THURSDAY = 4
+    FRIDAY = 5
+    SATURDAY = 6
+    UNDEFINED = 7
+
+class DanfossAdaptationRunControl(t.enum8):
+    INITIATE = 1
+    CANCEL = 2
 
 
 class DanfossThermostatCluster(CustomCluster, Thermostat):
@@ -76,9 +87,9 @@ class DanfossThermostatCluster(CustomCluster, Thermostat):
     }
 
     manufacturer_attributes = {
-        0x4000: ("etrv_open_windows_detection", t.enum8),
+        0x4000: ("etrv_open_windows_detection", DanfossTrvOpenWindowDetection),
         0x4003: ("external_open_windows_detected", t.Bool),
-        0x4010: ("exercise_day_of_week", t.enum8),
+        0x4010: ("exercise_day_of_week", DanfossExerciseDayOfWeek),
         0x4011: ("exercise_trigger_time", t.uint16_t),
         0x4012: ("mounting_mode_active", t.Bool),
         0x4013: ("mounting_mode_control", t.Bool),
@@ -92,7 +103,7 @@ class DanfossThermostatCluster(CustomCluster, Thermostat):
         0x4040: ("load_radiator_room_mean", t.uint16_t),
         0x404A: ("load_estimate_radiator", t.uint16_t),
         0x404B: ("regulation_setPoint_offset", t.int8s),
-        0x404C: ("adaptation_run_control", t.enum8),
+        0x404C: ("adaptation_run_control", DanfossAdaptationRunControl),
         0x404D: ("adaptation_run_status", t.bitmap8),
         0x404E: ("adaptation_run_settings", t.bitmap8),
         0x404F: ("preheat_status", t.Bool),
@@ -123,8 +134,8 @@ class DanfossUserInterfaceCluster(CustomCluster, UserInterface):
     """Danfoss custom cluster."""
 
     manufacturer_attributes = {
-        0x0001: ("keypad_lockout", t.enum8),
-        0x4000: ("viewing_direction", t.enum8),
+        0x0001: ("keypad_lockout", DanfossKeypadLockout),
+        0x4000: ("viewing_direction", DanfossViewingDirection),
         0xFFFD: ("cluster_revision", t.uint16_t),
     }
 
