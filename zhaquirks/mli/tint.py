@@ -234,33 +234,35 @@ class TintRemote(CustomDevice):
             COMMAND: COMMAND_ATTRIBUTE_UPDATED,
             CLUSTER_ID: 5,
             ENDPOINT_ID: 1,
-            ARGS: [{
+            ARGS: {
                 ATTRIBUTE_ID: 1,
                 ATTRIBUTE_NAME: CURRENT_SCENE,
                 VALUE: 3
-                }],
+                },
         },
+
         # SCENE: sunset
         (SHORT_PRESS, "sunset"): {
             COMMAND: COMMAND_ATTRIBUTE_UPDATED,
             CLUSTER_ID: 5,
             ENDPOINT_ID: 1,
-            ARGS: [{
+            ARGS: {
                 ATTRIBUTE_ID: 1,
                 ATTRIBUTE_NAME: CURRENT_SCENE,
                 VALUE: 1
-                }],
+                },
         },
+
         # SCENE: party
         (SHORT_PRESS, "party"): {
             COMMAND: COMMAND_ATTRIBUTE_UPDATED,
             CLUSTER_ID: 5,
             ENDPOINT_ID: 1,
-            ARGS: [{
+            ARGS: {
                 ATTRIBUTE_ID: 1,
                 ATTRIBUTE_NAME: CURRENT_SCENE,
                 VALUE: 2
-                }],
+                },
         },
 
         # SCENE: nightlight
@@ -268,32 +270,35 @@ class TintRemote(CustomDevice):
             COMMAND: COMMAND_ATTRIBUTE_UPDATED,
             CLUSTER_ID: 5,
             ENDPOINT_ID: 1,
-            ARGS: [{
+            ARGS: {
                 ATTRIBUTE_ID: 1,
                 ATTRIBUTE_NAME: CURRENT_SCENE,
                 VALUE: 6
-                }],
+                },
         },
+
         # SCENE: campfire
         (SHORT_PRESS, "campfire"): {
             COMMAND: COMMAND_ATTRIBUTE_UPDATED,
             CLUSTER_ID: 5,
             ENDPOINT_ID: 1,
-            ARGS: [{
+            ARGS: {
                 ATTRIBUTE_ID: 1,
                 ATTRIBUTE_NAME: CURRENT_SCENE,
                 VALUE: 4
-                }],
+                },
         },
+
         # SCENE: romance
         (SHORT_PRESS, "romance"): {
             COMMAND: COMMAND_ATTRIBUTE_UPDATED,
             CLUSTER_ID: 5,
             ENDPOINT_ID: 1,
-            ARGS: [{
+            ARGS: {
                 ATTRIBUTE_ID: 1,
                 ATTRIBUTE_NAME: CURRENT_SCENE,
                 VALUE: 5
-                }],
+                },
         },
+
     }
