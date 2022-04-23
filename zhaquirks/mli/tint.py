@@ -18,14 +18,36 @@ from zigpy.zcl.clusters.lightlink import LightLink
 
 from zhaquirks import Bus, LocalDataCluster
 from zhaquirks.const import (
+    ARGS,
+    ATTRIBUTE_ID,
+    ATTRIBUTE_NAME,
+    CLUSTER_ID,
+    COMMAND,
+    COMMAND_ATTRIBUTE_UPDATED,
+    COMMAND_MOVE,
+    COMMAND_ON,
+    COMMAND_OFF,
+    COMMAND_STEP,
+    COMMAND_STOP,
     DEVICE_TYPE,
+    DIM_DOWN,
+    DIM_UP,
+    ENDPOINT_ID,
     ENDPOINTS,
     INPUT_CLUSTERS,
     MODELS_INFO,
     OUTPUT_CLUSTERS,
     PROFILE_ID,
+    SHORT_PRESS,
+    LONG_PRESS,
+    LONG_RELEASE,
+    VALUE,
 )
 
+CHANGE_SCENE = "change_scene"
+COMMAND_MOVE_TO_COLOR = "move_to_color"
+COMMAND_MOVE_TO_COLOR_TEMP = "move_to_color_temp" # zhaquirks/const.py only knows COMMAND_MOVE_COLOR_TEMP
+CURRENT_SCENE = "current_scene"
 TINT_SCENE_ATTR = 0x4005
 
 _LOGGER = logging.getLogger(__name__)
@@ -44,7 +66,7 @@ class TintRemoteScenesCluster(LocalDataCluster, Scenes):
 
     def change_scene(self, value):
         """Change scene attribute to new value."""
-        self._update_attribute(self.attridx["current_scene"], value)
+        self._update_attribute(self.attridx[CURRENT_SCENE], value)
 
 
 class TintRemoteBasicCluster(CustomCluster, Basic):
@@ -66,7 +88,7 @@ class TintRemoteBasicCluster(CustomCluster, Basic):
             return
 
         value = attr.value.value
-        self.endpoint.device.scene_bus.listener_event("change_scene", value)
+        self.endpoint.device.scene_bus.listener_event(CHANGE_SCENE, value)
 
 
 class TintRemote(CustomDevice):
@@ -126,5 +148,157 @@ class TintRemote(CustomDevice):
                     LightLink.cluster_id,  # 4096
                 ],
             },
+        }
+    }
+
+    device_automation_triggers = {
+
+        # ON / OFF BUTTON
+        (SHORT_PRESS, "BUTTON_ON"): {
+            COMMAND: COMMAND_ON,
+            CLUSTER_ID: 6,
+            ENDPOINT_ID: 1,
+            ARGS: [],
         },
+        (SHORT_PRESS, "BUTTON_OFF"): {
+            COMMAND: COMMAND_OFF,
+            CLUSTER_ID: 6,
+            ENDPOINT_ID: 1,
+            ARGS: [],
+        },
+
+        # COLOR WHEEL
+        # todo:  validate correct handling for dynmic color values sent by color wheel
+        # WARMER
+        (SHORT_PRESS, "COLOR_WHEEL"): {
+            COMMAND: COMMAND_MOVE_TO_COLOR,
+            CLUSTER_ID: 768,
+            ENDPOINT_ID: 1,
+            ARGS: [24420, 38570, 0], # sample values
+        },
+
+        # COLOR TEMPERATURE BUTTONS
+        # todo:  validate correct handling for cycling through available values
+        # WARMER
+        (SHORT_PRESS, "BUTTON_COLOR_TEMP_WARM"): {
+            COMMAND: COMMAND_MOVE_TO_COLOR_TEMP,
+            CLUSTER_ID: 768,
+            ENDPOINT_ID: 1,
+            ARGS: [370, 10],
+        },
+        # COLDER
+        (SHORT_PRESS, "BUTTON_COLOR_TEMP_COLD"): {
+            COMMAND: COMMAND_MOVE_TO_COLOR_TEMP,
+            CLUSTER_ID: 768,
+            ENDPOINT_ID: 1,
+            ARGS: [153, 10],
+        },
+
+        # BRIGHTNESS UP/DOWN BUTTONS
+        (SHORT_PRESS, DIM_DOWN): {
+            COMMAND: COMMAND_STEP,
+            CLUSTER_ID: 8,
+            ENDPOINT_ID: 1,
+            ARGS: [1, 43, 10],
+        },
+        (LONG_PRESS, DIM_DOWN): {
+            COMMAND: COMMAND_MOVE,
+            CLUSTER_ID: 8,
+            ENDPOINT_ID: 1,
+            ARGS: [1, 100],
+        },
+        (SHORT_PRESS, DIM_UP): {
+            COMMAND: COMMAND_STEP,
+            CLUSTER_ID: 8,
+            ENDPOINT_ID: 1,
+            ARGS: [0, 43, 10],
+        },
+        (LONG_PRESS, DIM_UP): {
+            COMMAND: COMMAND_MOVE,
+            CLUSTER_ID: 8,
+            ENDPOINT_ID: 1,
+            ARGS: [0, 100],
+        },
+        # todo: check for correct definition, because stop command is being sent for up and down equally """
+        (LONG_RELEASE): {
+            COMMAND: COMMAND_STOP,
+            CLUSTER_ID: 8,
+            ENDPOINT_ID: 1,
+            ARGS: [],
+        },
+
+        # SCENE BUTTONS
+
+        # SCENE: worklight
+        (SHORT_PRESS, "worklight"): {
+            COMMAND: COMMAND_ATTRIBUTE_UPDATED,
+            CLUSTER_ID: 5,
+            ENDPOINT_ID: 1,
+            ARGS: {
+                ATTRIBUTE_ID: 1,
+                ATTRIBUTE_NAME: CURRENT_SCENE,
+                VALUE: 3
+                },
+        },
+
+        # SCENE: sunset
+        (SHORT_PRESS, "sunset"): {
+            COMMAND: COMMAND_ATTRIBUTE_UPDATED,
+            CLUSTER_ID: 5,
+            ENDPOINT_ID: 1,
+            ARGS: {
+                ATTRIBUTE_ID: 1,
+                ATTRIBUTE_NAME: CURRENT_SCENE,
+                VALUE: 1
+                },
+        },
+
+        # SCENE: party
+        (SHORT_PRESS, "party"): {
+            COMMAND: COMMAND_ATTRIBUTE_UPDATED,
+            CLUSTER_ID: 5,
+            ENDPOINT_ID: 1,
+            ARGS: {
+                ATTRIBUTE_ID: 1,
+                ATTRIBUTE_NAME: CURRENT_SCENE,
+                VALUE: 2
+                },
+        },
+
+        # SCENE: nightlight
+        (SHORT_PRESS, "nightlight"): {
+            COMMAND: COMMAND_ATTRIBUTE_UPDATED,
+            CLUSTER_ID: 5,
+            ENDPOINT_ID: 1,
+            ARGS: {
+                ATTRIBUTE_ID: 1,
+                ATTRIBUTE_NAME: CURRENT_SCENE,
+                VALUE: 6
+                },
+        },
+
+        # SCENE: campfire
+        (SHORT_PRESS, "campfire"): {
+            COMMAND: COMMAND_ATTRIBUTE_UPDATED,
+            CLUSTER_ID: 5,
+            ENDPOINT_ID: 1,
+            ARGS: {
+                ATTRIBUTE_ID: 1,
+                ATTRIBUTE_NAME: CURRENT_SCENE,
+                VALUE: 4
+                },
+        },
+
+        # SCENE: romance
+        (SHORT_PRESS, "romance"): {
+            COMMAND: COMMAND_ATTRIBUTE_UPDATED,
+            CLUSTER_ID: 5,
+            ENDPOINT_ID: 1,
+            ARGS: {
+                ATTRIBUTE_ID: 1,
+                ATTRIBUTE_NAME: CURRENT_SCENE,
+                VALUE: 5
+                },
+        },
+
     }
